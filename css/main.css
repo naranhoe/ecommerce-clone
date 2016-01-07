@@ -1,6 +1,5 @@
 body {
   padding-top: 50px;
-
 }
 
 #headerWrapper {
@@ -55,5 +54,14 @@ body {
 .img-thumb {
   width: auto;
   height: 200px;
+}
+
+#footer {
+  margin-top: 50px;
+}
+
+img.details {
+  width: 33%;
+  margin: 15px auto;
 
 }
