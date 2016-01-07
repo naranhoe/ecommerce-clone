@@ -50,5 +50,10 @@ body {
   background-size: auto 350px;
   top: 400px;
   left: -25px;
+}
+
+.img-thumb {
+  width: auto;
+  height: 200px;
 
 }
