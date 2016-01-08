@@ -4,4 +4,6 @@
     echo "Database connetion failed with following error(s): " . mysqli_connect_error();
     die();
   }
+
+  define('BASEURL', '/tutorial/');
 ?>

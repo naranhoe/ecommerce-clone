@@ -1,5 +1,6 @@
 <!-- Details Light Box -->
-<div class="modal fade details-1" id="details-1" tabindex="-1" role="dialog" aria-labelledby="details-1" aria-hidden="true">
+<?php ob_start(); ?>
+<div class="modal fade details-1" id="details-modal" tabindex="-1" role="dialog" aria-labelledby="details-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,3 +54,4 @@
     </div>
   </div>
 </div>
+<?php echo ob_get_clean(); ?>
