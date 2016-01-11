@@ -19,11 +19,10 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <button class="close" type="button" onclick="closeModal()" aria-label="Close">
           <span aria-hidden="true"> &times;</span>
         </button>
         <h4 class="modal-title text-center"><?php echo $product['title']; ?></h4>
-        <?php var_dump($size_array); ?>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -55,7 +54,7 @@
                       $string_array = explode(':', "$string");
                       $size = $string_array[0];
                       $quantity = $string_array[1];
-                      echo "<option value='$size'>$size</option>";
+                      echo "<option value='$size'>$size ($quantity Available)</option>";
                     } ?>
                   </select>
                 </div>
@@ -65,10 +64,18 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-default" data-dismiss="modal">Close</button>
-        <button class="btn btn-warning" type="sumbit"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+        <button class="btn btn-default" onclick="closeModal()">Close</button>
+        <button class="btn btn-warning" type="sumbit"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
       </div>
     </div>
   </div>
 </div>
+<script>
+    function closeModal() {
+      jQuery('#details-modal').modal('hide');
+      setTimeout(function(){
+        jQuery('#details-modal').remove();
+      },500);
+    }
+</script>
 <?php echo ob_get_clean(); ?>
