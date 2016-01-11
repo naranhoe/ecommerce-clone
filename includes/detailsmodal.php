@@ -9,6 +9,8 @@
   $sql = "SELECT brand FROM brand WHERE id = '$brand_id'";
   $brand_query = $db->query($sql);
   $brand = mysqli_fetch_assoc($brand_query);
+  $sizestring = $product['sizes'];
+  $size_array = explode(',', $sizestring);
 ?>
 
 <!-- Details Light Box -->
@@ -21,8 +23,8 @@
           <span aria-hidden="true"> &times;</span>
         </button>
         <h4 class="modal-title text-center"><?php echo $product['title']; ?></h4>
+        <?php var_dump($size_array); ?>
       </div>
-
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
@@ -43,16 +45,18 @@
                     <label for="quantity">Quantity:</label>
                     <input type="text" class="form-control" id="quantity" name="quantity">
                   </div>
-                  <p>Aviailable: 3</p>
                   <br>
                 </div>
                 <div class="form-group">
                   <label for="size">Size:</label>
                   <select class="form-control" name="size" id="size">
                     <option value=""></option>
-                    <option value="28">28</option>
-                    <option value="32">32</option>
-                    <option value="34">34</option>
+                    <?php foreach($size_array as $string) {
+                      $string_array = explode(':', "$string");
+                      $size = $string_array[0];
+                      $quantity = $string_array[1];
+                      echo "<option value='$size'>$size</option>";
+                    } ?>
                   </select>
                 </div>
               </form>
