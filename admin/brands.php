@@ -18,7 +18,9 @@
     $sql = "SELECT * FROM brand WHERE brand = '$brand'";
     $result = $db->query($sql);
     $count = mysqli_num_rows($result);
-    echo $count;
+    if ($count > 0) {
+      $errors[] .= $brand . ' already exists. Please choose another brand name!';
+    }
 
     // Display errors
     if (!empty($errors)) {
