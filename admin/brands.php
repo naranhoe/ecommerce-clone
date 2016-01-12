@@ -9,7 +9,7 @@
 
   // If add form is submitted
   if (isset($_POST['add_submit'])) {
-    $brand = $_POST['brand'];
+    $brand = sanatize($_POST['brand']);
     // Check is Brand is blank
     if ($_POST['brand'] == '') {
       $errors[] .= "Please enter a brand name!";
@@ -45,7 +45,7 @@
   </form>
 </div><hr>
 
-<table class="table table-bordered table-striped table-auto">
+<table class="table table-bordered table-striped table-auto table-condensed">
   <thead>
     <th></th><th>Brand</th><th></th>
   </thead>

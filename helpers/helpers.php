@@ -7,4 +7,8 @@
     $display .= '</ul>';
     return $display;
   }
+
+  function sanatize($dirty) {
+    return htmlentities($dirty, ENT_QUOTES,"UTF-8");
+  }
 ?>
