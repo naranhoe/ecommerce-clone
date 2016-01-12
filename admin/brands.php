@@ -59,7 +59,7 @@
 <div class="text-center">
   <form class="form-inline" action="brands.php<?php echo((isset($_GET['edit']))?'?edit='.$edit_id:''); ?>" method="post">
     <div class="form-group">
-      <label for="brand">Add A Brand:</label>
+      <label for="brand"><?php echo((isset($_GET['edit']))?'Edit':'Add A'); ?> Brand:</label>
       <input type="text" name="brand" id="brand" class="form-control" value="<?php echo $_POST['brand']; ?>">
       <input type="submit" name="add_submit" value="Add Brand" class="btn btn-md btn-success">
     </div>
