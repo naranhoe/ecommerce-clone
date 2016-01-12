@@ -12,7 +12,7 @@
     $brand = $_POST['brand'];
     // Check is Brand is blank
     if ($_POST['brand'] == '') {
-      $errors[] .= "You must enter a brand!";
+      $errors[] .= "Please enter a brand name!";
     }
     // Check if brand exists in database
     $sql = "SELECT * FROM brand WHERE brand = '$brand'";
@@ -27,6 +27,9 @@
       echo display_erros($errors);
     }else{
       // Add brand to database
+      $sql = "INSERT INTO brand (brand) VALUES ('$brand')";
+      $db->query($sql);
+      header('Location: brands.php');
     }
   }
 ?>
