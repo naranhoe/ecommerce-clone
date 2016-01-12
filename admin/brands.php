@@ -7,9 +7,21 @@
   $results = $db->query($sql);
   $errors = array();
 
+  // Delete brand
+  if(isset($_GET['delete']) && !empty($_GET['delete'])) {
+    $delete_id = (int)$_GET['delete'];
+    $delete_id = sanitize($delete_id);
+    $sql = "DELETE FROM brand WHERE id = '$delete_id'";
+    $db->query($sql);
+    // Redirect back to brands page
+    header("Location: https://www.google.com");
+    echo "Deleted successfully!";
+    exit();
+  }
+
   // If add form is submitted
   if (isset($_POST['add_submit'])) {
-    $brand = sanatize($_POST['brand']);
+    $brand = sanitize($_POST['brand']);
     // Check is Brand is blank
     if ($_POST['brand'] == '') {
       $errors[] .= "Please enter a brand name!";
@@ -29,7 +41,9 @@
       // Add brand to database
       $sql = "INSERT INTO brand (brand) VALUES ('$brand')";
       $db->query($sql);
-      header('Location: brands.php');
+      header("Location: https://www.google.com");
+      echo "Added successfully!";
+      exit();
     }
   }
 ?>
