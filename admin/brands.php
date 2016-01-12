@@ -36,6 +36,9 @@
     }
     // Check if brand exists in database
     $sql = "SELECT * FROM brand WHERE brand = '$brand'";
+    if (isset($_GET['edit'])) {
+      $sql = "SELECT * FROM brand WHERE brand = '$brand' AND id != '$edit_id'";
+    }
     $result = $db->query($sql);
     $count = mysqli_num_rows($result);
     if ($count > 0) {
@@ -48,6 +51,9 @@
     }else{
       // Add brand to database
       $sql = "INSERT INTO brand (brand) VALUES ('$brand')";
+      if (isset($_GET['edit'])) {
+        $sql = "UPDATE brand SET brand = '$brand' WHERE id = '$edit_id'";
+      }
       $db->query($sql);
       header("Location: brands.php");
       echo "Added successfully!";
@@ -59,8 +65,16 @@
 <div class="text-center">
   <form class="form-inline" action="brands.php<?php echo((isset($_GET['edit']))?'?edit='.$edit_id:''); ?>" method="post">
     <div class="form-group">
+      <?php if(isset($_GET['edit'])){
+        $brand_value = $eBrand['brand'];
+
+      }else{
+        if (isset($_POST['brand'])) {
+          $brand_value = sanitize($_POST['brand']);
+        }
+      } ?>
       <label for="brand"><?php echo((isset($_GET['edit']))?'Edit':'Add A'); ?> Brand:</label>
-      <input type="text" name="brand" id="brand" class="form-control" value="<?php echo $_POST['brand']; ?>">
+      <input type="text" name="brand" id="brand" class="form-control" value="<?php echo $brand_value; ?>">
       <?php if (isset($_GET['edit'])): ?>
         <a href="brands.php" class="btn btn-default">Cancel</a>
       <?php endif; ?>
