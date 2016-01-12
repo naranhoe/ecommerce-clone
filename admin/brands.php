@@ -19,7 +19,7 @@
     $result = $db->query($sql);
     $count = mysqli_num_rows($result);
     if ($count > 0) {
-      $errors[] .= $brand . ' already exists. Please choose another brand name!';
+      $errors[] .= ucfirst($brand) . ' already exists. Please choose another brand name!';
     }
 
     // Display errors
