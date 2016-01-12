@@ -57,7 +57,7 @@
 <h2 class="text-center">Brands</h2><hr>
 <!-- Brand Form -->
 <div class="text-center">
-  <form class="form-inline" action="brands.php"<?php echo ((isset($_GET['edit']))?'?edit='.$edit_id.:''); ?> method="post">
+  <form class="form-inline" action="brands.php<?php echo((isset($_GET['edit']))?'?edit='.$edit_id:''); ?>" method="post">
     <div class="form-group">
       <label for="brand">Add A Brand:</label>
       <input type="text" name="brand" id="brand" class="form-control" value="<?php echo $_POST['brand']; ?>">
