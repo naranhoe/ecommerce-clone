@@ -61,6 +61,9 @@
     <div class="form-group">
       <label for="brand"><?php echo((isset($_GET['edit']))?'Edit':'Add A'); ?> Brand:</label>
       <input type="text" name="brand" id="brand" class="form-control" value="<?php echo $_POST['brand']; ?>">
+      <?php if (isset($_GET['edit'])): ?>
+        <a href="brands.php" class="btn btn-default">Cancel</a>
+      <?php endif; ?>
       <input type="submit" name="add_submit" value="<?php echo((isset($_GET['edit']))?'Edit':'Add'); ?> Brand" class="btn btn-md btn-success">
     </div>
   </form>
