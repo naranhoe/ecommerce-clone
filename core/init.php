@@ -4,5 +4,6 @@
     echo "Database connetion failed with following error(s): " . mysqli_connect_error();
     die();
   }
-  require_once '../helpers/helpers.php';
+  require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+  require_once $_SERVER['DOCUMENT_ROOT'] . "/helpers/helpers.php";
 ?>
