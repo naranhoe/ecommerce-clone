@@ -7,6 +7,15 @@
   $results = $db->query($sql);
   $errors = array();
 
+  // Edit Brand
+  if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+    $edit_id = (int)$_GET['edit'];
+    $edit_id = sanitize($edit_id);
+    $sql2 = "SELECT * FROM brand WHERE id = '$edit_id'";
+    $edit_result = $db->query($sql2);
+    $eBrand = mysqli_fetch_assoc($edit_result);
+  }
+
   // Delete brand
   if(isset($_GET['delete']) && !empty($_GET['delete'])) {
     $delete_id = (int)$_GET['delete'];
@@ -14,9 +23,8 @@
     $sql = "DELETE FROM brand WHERE id = '$delete_id'";
     $db->query($sql);
     // Redirect back to brands page
-    header("Location: https://www.google.com");
+    header("Location: brands.php");
     echo "Deleted successfully!";
-    exit();
   }
 
   // If add form is submitted
@@ -41,16 +49,15 @@
       // Add brand to database
       $sql = "INSERT INTO brand (brand) VALUES ('$brand')";
       $db->query($sql);
-      header("Location: https://www.google.com");
+      header("Location: brands.php");
       echo "Added successfully!";
-      exit();
     }
   }
 ?>
 <h2 class="text-center">Brands</h2><hr>
 <!-- Brand Form -->
 <div class="text-center">
-  <form class="form-inline" action="brands.php" method="post">
+  <form class="form-inline" action="brands.php"<?php echo ((isset($_GET['edit']))?'?edit='.$edit_id.:''); ?> method="post">
     <div class="form-group">
       <label for="brand">Add A Brand:</label>
       <input type="text" name="brand" id="brand" class="form-control" value="<?php echo $_POST['brand']; ?>">
