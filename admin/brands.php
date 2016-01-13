@@ -1,5 +1,5 @@
 <?php
-  require_once '../core/init.php';
+  require_once $_SERVER['DOCUMENT_ROOT'] . '/core/init.php';
   include 'includes/head.php';
   include 'includes/navigation.php';
   // Get brands from database
@@ -47,7 +47,7 @@
 
     // Display errors
     if (!empty($errors)) {
-      echo display_erros($errors);
+      echo display_errors($errors);
     }else{
       // Add brand to database
       $sql = "INSERT INTO brand (brand) VALUES ('$brand')";

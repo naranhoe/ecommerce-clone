@@ -1,17 +1,52 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'] . '/core/init.php';
+  include_once $_SERVER['DOCUMENT_ROOT'] . '/core/init.php';
   include 'includes/head.php';
   include 'includes/navigation.php';
 
   $sql = "SELECT * FROM categories WHERE parent = 0";
   $result = $db->query($sql);
+  $errors = array();
+
+  // Process Form
+  if (isset($_POST) && !empty($_POST)) {
+    $parent = sanitize($_POST['parent']);
+    $category = sanitize($_POST['category']);
+    $sqlform = "SELECT * FROM categories WHERE category = '$category' AND parent = '$parent'";
+    $fresult = $db->query($sqlform);
+    $count = mysqli_num_rows($fresult);
+
+    // If category is blank
+    if ($category == '') {
+      $errors[] .= 'The category cannot be left blank!';
+    }
+
+    // If exists in the databse
+    if ($count > 0) {
+      $errors[] .= $category . " already exists! Please choose a new category.";
+    }
+
+    // Display errors or display database
+    if (!empty($errors)) {
+      // display errors
+      $display = display_errors($errors);
+      echo($display);
+    }
+    else {
+      // Update database
+      $updatesql = "INSERT INTO categories (category, parent) VALUES ('$category','$parent')";
+      $db->query($updatesql);
+      header('Location: categories.php');
+    }
+  }
 ?>
+
 <h2 class="text-center">Categories</h2><hr>
 <div class="row">
 
   <!-- Form -->
   <div class="col-md-6">
     <legend>Add A Category</legend>
+    <div id="errors"></div>
     <form class="form" action="categories.php" method="post">
       <div class="form-group">
         <label for="parent">Parent</label>
@@ -27,7 +62,7 @@
         <input type="text" class='form-control' id='category' name="category">
       </div>
       <div class="form-group">
-        <input type="button" value="Add Category" class="btn btn-success">
+        <input type="submit" value="Add Category" class="btn btn-success">
       </div>
     </form>
   </div>
