@@ -7,6 +7,22 @@
   $result = $db->query($sql);
   $errors = array();
 
+  //Delete Category
+  if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+    $delete_id = (int)$_GET['delete'];
+    $delete_id = sanitize($delete_id);
+    $sql = "SELECT * FROM categories WHERE id = '$delete_id'";
+    $result = $db->query($sql);
+    $category = mysqli_fetch_assoc($result);
+    if ($category['parent'] == 0) {
+      $sql = "DELETE FROM categories WHERE parent = '$delete_id'";
+      $db->query($sql);
+    }
+    $sqldelete = "DELETE FROM categories WHERE id = '$delete_id'";
+    $db->query($sqldelete);
+    header('Location: categories.php');
+  }
+
   // Process Form
   if (isset($_POST) && !empty($_POST)) {
     $parent = sanitize($_POST['parent']);
@@ -22,7 +38,7 @@
 
     // If exists in the databse
     if ($count > 0) {
-      $errors[] .= $category . " already exists! Please choose a new category.";
+      $errors[] .= ucfirst($category) . " already exists! Please choose a new category.";
     }
 
     // Display errors or display database
@@ -33,6 +49,7 @@
     }
     else {
       // Update database
+      $category = ucfirst($category);
       $updatesql = "INSERT INTO categories (category, parent) VALUES ('$category','$parent')";
       $db->query($updatesql);
       header('Location: categories.php');
