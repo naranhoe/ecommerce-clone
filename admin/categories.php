@@ -7,7 +7,16 @@
   $result = $db->query($sql);
   $errors = array();
 
-  //Delete Category
+  // Edit Category
+  if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+    $edit_id = (int)$_GET['edit'];
+    $edit_id = sanitize($edit_id);
+    $editsql = "SELECT * FROM categories WHERE id = '$edit_id'";
+    $editresult = $db->query($editsql);
+    $category = mysqli_fetch_assoc($editresult);
+  }
+
+  // Delete Category
   if (isset($_GET['delete']) && !empty($_GET['delete'])) {
     $delete_id = (int)$_GET['delete'];
     $delete_id = sanitize($delete_id);
@@ -62,9 +71,9 @@
 
   <!-- Form -->
   <div class="col-md-6">
-    <legend>Add A Category</legend>
+    <legend><?php echo ((isset($_GET['edit']))?'Edit':'Add A') ?> Category</legend>
     <div id="errors"></div>
-    <form class="form" action="categories.php" method="post">
+    <form class="form" action="categories.php<?php echo ((isset($_GET['edit']))?'?edit='.$edit_id:''); ?>" method="post">
       <div class="form-group">
         <label for="parent">Parent</label>
         <select class="form-control" name="parent" id='parent'>
