@@ -10,9 +10,9 @@
 <div class="row">
 
   <!-- Form -->
-  <div></div>
+  <div class="col-md-6">
     <form class="form" action="categories.php" method="post">
-      <div class="form-group col-md-6">
+      <div class="form-group">
         <label for="parent">Parent</label>
         <select class="form-control" name="parent" id='parent'>
           <option value="0">Parent</option>
@@ -21,11 +21,19 @@
           <?php endwhile; ?>
         </select>
       </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" class='form-control' id='category' name="category">
+      </div>
+      <div class="form-group">
+        <input type="button" value="Add Category" class="btn btn-success">
+      </div>
     </form>
+  </div>
   <!-- Category Table -->
     <div class="col-md-6">
       <table class='table table-bordered'>
-        <thead><br>
+        <thead>
           <th>Categories</th><th>Parent</th><th></th>
         </thead>
         <tbody>
