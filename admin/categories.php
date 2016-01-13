@@ -11,6 +11,7 @@
 
   <!-- Form -->
   <div class="col-md-6">
+    <legend>Add A Category</legend>
     <form class="form" action="categories.php" method="post">
       <div class="form-group">
         <label for="parent">Parent</label>
