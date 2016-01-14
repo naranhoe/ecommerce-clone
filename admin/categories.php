@@ -39,6 +39,10 @@
     $post_parent = sanitize($_POST['parent']);
     $category = sanitize($_POST['category']);
     $sqlform = "SELECT * FROM categories WHERE category = '$category' AND parent = '$post_parent'";
+    if (isset($_GET['edit'])) {
+      $id = (int)$edit_category['id'];
+      $sqlform = "SELECT * FROM categories WHERE category = '$category' AND parent = '$post_parent' AND id != '$id'";
+    }
     $fresult = $db->query($sqlform);
     $count = mysqli_num_rows($fresult);
 
