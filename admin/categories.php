@@ -88,9 +88,9 @@
       <div class="form-group">
         <label for="parent">Parent</label>
         <select class="form-control" name="parent" id='parent'>
-          <option value="0"><?php echo (($parent_value == 0)?'selected="selected"':''); ?>Parent</option>
+          <option value="0"<?php echo(($parent_value == 0)?' selected="selected"':''); ?>>Parent</option>
           <?php while($parent = mysqli_fetch_assoc($result)): ?>
-            <option value="<?php echo($parent['id']); ?>" <?php echo(($parent_value == $parent['id'])?'selected="selected"':''); ?>><?php echo($parent['category']); ?></option>
+            <option value="<?php echo($parent['id']); ?>" <?php echo(($parent_value == $parent['id'])?' selected="selected"':''); ?>><?php echo($parent['category']); ?></option>
           <?php endwhile; ?>
         </select>
       </div>
