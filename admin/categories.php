@@ -60,7 +60,7 @@
     if (!empty($errors)) {
       // display errors
       $display = display_errors($errors);
-      echo($display);
+      // echo($display);
     }
     else {
       // Update database
@@ -87,7 +87,7 @@
   <!-- Form -->
   <div class="col-md-6">
     <legend><?php echo ((isset($_GET['edit']))?'Edit':'Add A') ?> Category</legend>
-    <div id="errors"></div>
+    <div id="errors"><?php echo($display); ?></div>
     <form class="form" action="categories.php<?php echo((isset($_GET['edit']))?'?edit='.$edit_id:''); ?>" method="post">
       <div class="form-group">
         <label for="parent">Parent</label>
