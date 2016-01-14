@@ -7,6 +7,7 @@
   $result = $db->query($sql);
   $errors = array();
   $category = '';
+  $post_parent = '';
 
   // Edit Category
   if (isset($_GET['edit']) && !empty($_GET['edit'])) {
@@ -35,9 +36,9 @@
 
   // Process Form
   if (isset($_POST) && !empty($_POST)) {
-    $parent = sanitize($_POST['parent']);
+    $post_parent = sanitize($_POST['parent']);
     $category = sanitize($_POST['category']);
-    $sqlform = "SELECT * FROM categories WHERE category = '$category' AND parent = '$parent'";
+    $sqlform = "SELECT * FROM categories WHERE category = '$category' AND parent = '$post_parent'";
     $fresult = $db->query($sqlform);
     $count = mysqli_num_rows($fresult);
 
@@ -60,16 +61,19 @@
     else {
       // Update database
       $category = ucfirst($category);
-      $updatesql = "INSERT INTO categories (category, parent) VALUES ('$category','$parent')";
+      $updatesql = "INSERT INTO categories (category, parent) VALUES ('$category','$post_parent')";
       $db->query($updatesql);
       header('Location: categories.php');
     }
   }
   $category_value = "";
+  $parent_value = 0;
   if (isset($_GET['edit'])) {
     $category_value = $edit_category['category'];
+    $parent_value = $edit_category['parent'];
   }elseif (isset($_POST)) {
     $category_value = ucfirst($category);
+    $parent_value = $post_parent;
   }
 ?>
 
@@ -80,13 +84,13 @@
   <div class="col-md-6">
     <legend><?php echo ((isset($_GET['edit']))?'Edit':'Add A') ?> Category</legend>
     <div id="errors"></div>
-    <form class="form" action="categories.php<?php echo ((isset($_GET['edit']))?'?edit='.$edit_id:''); ?>" method="post">
+    <form class="form" action="categories.php<?php echo((isset($_GET['edit']))?'?edit='.$edit_id:''); ?>" method="post">
       <div class="form-group">
         <label for="parent">Parent</label>
         <select class="form-control" name="parent" id='parent'>
-          <option value="0">Parent</option>
+          <option value="0"><?php echo (($parent_value == 0)?'selected="selected"':''); ?>Parent</option>
           <?php while($parent = mysqli_fetch_assoc($result)): ?>
-            <option value="<?php echo($parent['id']); ?>"><?php echo($parent['category']); ?></option>
+            <option value="<?php echo($parent['id']); ?>" <?php echo(($parent_value == $parent['id'])?'selected="selected"':''); ?>><?php echo($parent['category']); ?></option>
           <?php endwhile; ?>
         </select>
       </div>
