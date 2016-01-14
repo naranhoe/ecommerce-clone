@@ -13,9 +13,10 @@
      <?php while($product = mysqli_fetch_assoc($presults)): ?>
        <tr>
          <td>
-           <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+           <a href="products.php?edit=<?php echo $product['id']; ?>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+           <a href="products.php?delete=<?php echo $product['id']; ?>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-remove"></span></a>
          </td>
-         <td></td>
+         <td><?php echo $product['title']; ?></td>
          <td></td>
          <td></td>
          <td></td>
