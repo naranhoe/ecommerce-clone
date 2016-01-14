@@ -6,14 +6,15 @@
   $sql = "SELECT * FROM categories WHERE parent = 0";
   $result = $db->query($sql);
   $errors = array();
+  $category = '';
 
   // Edit Category
   if (isset($_GET['edit']) && !empty($_GET['edit'])) {
     $edit_id = (int)$_GET['edit'];
     $edit_id = sanitize($edit_id);
-    $editsql = "SELECT * FROM categories WHERE id = '$edit_id'";
-    $editresult = $db->query($editsql);
-    $category = mysqli_fetch_assoc($editresult);
+    $edit_sql = "SELECT * FROM categories WHERE id = '$edit_id'";
+    $edit_result = $db->query($edit_sql);
+    $edit_category = mysqli_fetch_assoc($edit_result);
   }
 
   // Delete Category
@@ -64,6 +65,12 @@
       header('Location: categories.php');
     }
   }
+  $category_value = "";
+  if (isset($_GET['edit'])) {
+    $category_value = $edit_category['category'];
+  }elseif (isset($_POST)) {
+    $category_value = ucfirst($category);
+  }
 ?>
 
 <h2 class="text-center">Categories</h2><hr>
@@ -85,13 +92,14 @@
       </div>
       <div class="form-group">
         <label for="category">Category</label>
-        <input type="text" class='form-control' id='category' name="category">
+        <input type="text" class='form-control' id='category' name="category" value="<?php echo($category_value); ?>">
       </div>
       <div class="form-group">
-        <input type="submit" value="Add Category" class="btn btn-success">
+        <input type="submit" value="<?php echo((isset($_GET['edit']))?'Edit':'Add'); ?> Category" class="btn btn-success">
       </div>
     </form>
   </div>
+
   <!-- Category Table -->
     <div class="col-md-6">
       <table class='table table-bordered'>
