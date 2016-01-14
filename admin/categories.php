@@ -60,12 +60,14 @@
     if (!empty($errors)) {
       // display errors
       $display = display_errors($errors);
-      // echo($display);
     }
     else {
       // Update database
       $category = ucfirst($category);
       $updatesql = "INSERT INTO categories (category, parent) VALUES ('$category','$post_parent')";
+      if (isset($_GET['edit'])) {
+        $updatesql = "UPDATE categories SET category = '$category', parent = '$post_parent' WHERE id = '$edit_id'";
+      }
       $db->query($updatesql);
       header('Location: categories.php');
     }
