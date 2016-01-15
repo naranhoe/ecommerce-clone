@@ -12,8 +12,6 @@
     $db->query($featured_sql);
     header('Location: products.php');
   }
-
-  // $sql2 = "SELECT * FROM categories WHERE category = ''";
  ?>
 
  <h2 class="text-center">Products</h2><hr>
@@ -24,6 +22,13 @@
         $childID = $product['categories'];
         $catsql = "SELECT * FROM categories WHERE id = '$childID'";
         $result = $db->query($catsql);
+
+        $child = mysqli_fetch_assoc($result);
+        $parentID = $child['parent'];
+        $parentsql = "SELECT * FROM categories WHERE id = '$parentID'";
+        $presult = $db->query($parentsql);
+        $parent = mysqli_fetch_assoc($presult);
+        $category = $parent['category'].'~'.$child['category'];
      ?>
        <tr>
          <td>
@@ -32,7 +37,7 @@
          </td>
          <td><?php echo $product['title']; ?></td>
          <td><?php echo money($product['price']); ?></td>
-         <td></td>
+         <td><?php echo $category; ?></td>
          <td><a href="products.php?featured=<?php echo (($product['featured'] == 0)?'1':'0'); ?>&id=<?php echo $product['id']; ?>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-<?php echo (($product['featured'] == 1)?'minus':'plus'); ?>"></span></a><?php echo (($product['featured']==1)?' Featured Product':''); ?></td>
          <td>0</td>
        </tr>
