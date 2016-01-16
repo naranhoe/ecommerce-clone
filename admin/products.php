@@ -55,6 +55,18 @@
         <label for="list_price">List Price*:</label>
         <input type="text" id="list_price" name="list_price" class="form-control" value="<?php echo ((isset($_POST['list_price']))?$_POST['list_price']:''); ?>">
       </div>
+
+      <!-- Button -->
+      <div class="form-group col-md-3">
+        <label>Quantity & Sizes*:</label>
+        <button class="btn btn-default form-control" name="button" onclick="jQuery('#sizesModal').modal('toggle'); return false;">Quantity & Sizes</button>
+      </div>
+
+      <!-- Sizes -->
+      <div class="form-group col-md-3">
+        <label>Sizes & Qty Preview</label>
+        <input type="text" name="sizes" id="sizes" value="<?php echo ((isset($_POST['sizes']))?$_POST['sizes']:''); ?>" readonly>
+      </div>
     </form>
   <?php }else{
 
