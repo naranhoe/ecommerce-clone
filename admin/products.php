@@ -1,7 +1,18 @@
-<?php
-  require_once $_SERVER['DOCUMENT_ROOT'] . "/core/init.php";
-  include "includes/head.php";
-  include "includes/navigation.php";
+  <?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/core/init.php";
+    include "includes/head.php";
+    include "includes/navigation.php";
+    if (isset($_GET['add'])) {
+  ?>
+    <h2 class="text-center">Add A New Product</h2><hr>
+    <form class="" action="products.php?add=1" method="post"  enctype="multipart/form-data">
+      <div class="form-group col-md-3">
+        <label for="title">Title*:</label>
+        <input type="type" name="title" id="title" value="<?php echo ((isset($_POST['title']))?sanitize($_POST['title']):'') ?>">
+
+      </div>
+    </form>
+  <?php }else{
 
   $sql = "SELECT * FROM products WHERE deleted = 0";
   $presults = $db->query($sql);
@@ -47,4 +58,4 @@
    </tbody>
  </table>
 
- <?php include "includes/footer.php"; ?>
+ <?php } include "includes/footer.php"; ?>
