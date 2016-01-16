@@ -36,6 +36,13 @@
           <?php endwhile; ?>
         </select>
       </div>
+
+      <!--  -->
+      <div class="form-group col-md-3">
+        <label for="child">Child Category*:</label>
+        <select class="form-control" id="child" name="child">
+        </select>
+      </div>
     </form>
   <?php }else{
 
