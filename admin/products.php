@@ -47,13 +47,13 @@
       <!-- Price -->
       <div class="form-group col-md-3">
         <label for="price">Price*:</label>
-        <input type="text" id="price" name="price" class="form-control" value="<?php echo ((isset($_POST['price']))?$_POST['price']:''); ?>">
+        <input type="text" id="price" name="price" class="form-control" value="<?php echo ((isset($_POST['price']))?sanitize($_POST['price']):''); ?>">
       </div>
 
       <!-- List Price -->
       <div class="form-group col-md-3">
         <label for="list_price">List Price*:</label>
-        <input type="text" id="list_price" name="list_price" class="form-control" value="<?php echo ((isset($_POST['list_price']))?$_POST['list_price']:''); ?>">
+        <input type="text" id="list_price" name="list_price" class="form-control" value="<?php echo ((isset($_POST['list_price']))?sanitize($_POST['list_price']):''); ?>">
       </div>
 
       <!-- Button -->
@@ -62,10 +62,22 @@
         <button class="btn btn-default form-control" name="button" onclick="jQuery('#sizesModal').modal('toggle'); return false;">Quantity & Sizes</button>
       </div>
 
-      <!-- Sizes -->
+      <!-- Sizes Preview -->
       <div class="form-group col-md-3">
         <label>Sizes & Qty Preview</label>
         <input class="form-control" type="text" name="sizes" id="sizes" value="<?php echo ((isset($_POST['sizes']))?$_POST['sizes']:''); ?>" readonly>
+      </div>
+
+      <!-- Photo -->
+      <div class="form-group col-md-6">
+        <label for="photo"></label>
+        <input type="file" name="photo" id="photo" class="form-control">
+      </div>
+
+      <!-- Description -->
+      <div class="form-group col-md-6">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" class="form-control" rows="6"><?php echo ((isset($_POST['description']))?sanitize($_POST['description']):'');?></textarea>
       </div>
     </form>
   <?php }else{
