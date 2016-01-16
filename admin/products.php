@@ -4,19 +4,35 @@
     include "includes/navigation.php";
     if (isset($_GET['add'])) {
     $brandQuery = $db->query("SELECT * FROM brand ORDER BY brand");
+    $parentQuery = $db->query("SELECT * FROM categories WHERE parent = 0 ORDER BY category");
   ?>
     <h2 class="text-center">Add A New Product</h2><hr>
     <form class="" action="products.php?add=1" method="post"  enctype="multipart/form-data">
+
+      <!-- Title -->
       <div class="form-group col-md-3">
         <label for="title">Title*:</label>
         <input type="text" class='form-control' name="title" id="title" value="<?php echo ((isset($_POST['title']))?sanitize($_POST['title']):'') ?>">
       </div>
+
+      <!-- Brand -->
       <div class="form-group col-md-3">
         <label for="brand">Brand*:</label>
         <select class="form-control" id="brand" name="brand">
           <option value=""<?php echo ((isset($_POST['brand']) && $_POST['brand'] == '')?' selected':''); ?>></option>
           <?php while($brand = mysqli_fetch_assoc($brandQuery)): ?>
             <option value="<?php echo $brand['id']; ?>"<?php echo ((isset($_POST['brand']) && $_POST['brand'] == $brand['id'])?' selected':''); ?>><?php echo $brand['brand']; ?></option>
+          <?php endwhile; ?>
+        </select>
+      </div>
+
+      <!-- Parent Category -->
+      <div class="form-group col-md-3">
+        <label for="parent">Parent Category*:</label>
+        <select class="form-control" id="parent" name="parent">
+          <option value=""<?php echo ((isset($_POST['parent']) && $_POST['parent'] == 0)?' selected':''); ?>></option>
+          <?php while($parent = mysqli_fetch_assoc($parentQuery)): ?>
+            <option value="<?php echo $parent['id']; ?>"<?php echo ((isset($_POST['parent']) && $_POST['parent'] == $parent['id'])?' select':''); ?>><?php echo $parent['category']; ?></option>
           <?php endwhile; ?>
         </select>
       </div>
