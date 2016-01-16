@@ -65,7 +65,7 @@
       <!-- Sizes -->
       <div class="form-group col-md-3">
         <label>Sizes & Qty Preview</label>
-        <input type="text" name="sizes" id="sizes" value="<?php echo ((isset($_POST['sizes']))?$_POST['sizes']:''); ?>" readonly>
+        <input class="form-control" type="text" name="sizes" id="sizes" value="<?php echo ((isset($_POST['sizes']))?$_POST['sizes']:''); ?>" readonly>
       </div>
     </form>
   <?php }else{
