@@ -79,6 +79,11 @@
         <label for="description">Description</label>
         <textarea id="description" name="description" class="form-control" rows="6"><?php echo ((isset($_POST['description']))?sanitize($_POST['description']):'');?></textarea>
       </div>
+
+      <!--  -->
+      <div class="form-group pull-right">
+        <input class="form-control btn btn-success" type="submit" name="name" value="Add Product">
+      </div><div class="clearfix"></div>
     </form>
   <?php }else{
 
