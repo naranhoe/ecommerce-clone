@@ -37,11 +37,23 @@
         </select>
       </div>
 
-      <!--  -->
+      <!-- Child Category -->
       <div class="form-group col-md-3">
         <label for="child">Child Category*:</label>
         <select class="form-control" id="child" name="child">
         </select>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group col-md-3">
+        <label for="price">Price*:</label>
+        <input type="text" id="price" name="price" class="form-control" value="<?php echo ((isset($_POST['price']))?$_POST['price']:''); ?>">
+      </div>
+
+      <!-- List Price -->
+      <div class="form-group col-md-3">
+        <label for="list_price">List Price*:</label>
+        <input type="text" id="list_price" name="list_price" class="form-control" value="<?php echo ((isset($_POST['list_price']))?$_POST['list_price']:''); ?>">
       </div>
     </form>
   <?php }else{
