@@ -80,11 +80,30 @@
         <textarea id="description" name="description" class="form-control" rows="6"><?php echo ((isset($_POST['description']))?sanitize($_POST['description']):'');?></textarea>
       </div>
 
-      <!--  -->
+      <!-- Add Product Button -->
       <div class="form-group pull-right">
         <input class="form-control btn btn-success" type="submit" name="name" value="Add Product">
       </div><div class="clearfix"></div>
     </form>
+
+    <!-- Modal -->
+<div class="modal fade" id="sizesModal" tabindex="-1" role="dialog" aria-labelledby="sizesModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="sizesModalLabel">Size & Quantity</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateSizes();jQuery('#sizesModal').modal('toggle'); return false;">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
   <?php }else{
 
   $sql = "SELECT * FROM products WHERE deleted = 0";
