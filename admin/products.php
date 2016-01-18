@@ -95,7 +95,16 @@
         <h4 class="modal-title" id="sizesModalLabel">Size & Quantity</h4>
       </div>
       <div class="modal-body">
-        ...
+        <?php for($i = 1; $i <= 12; $i++): ?>
+          <div class="form-group col-md-4">
+            <label for="size<?php echo $i; ?>">Size:</label>
+            <input type="text" name="size<?php echo $i; ?>" id="size<?php echo $i; ?>" class="form-control" value="">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="qty<?php echo $i?>">Quantity:</label>
+            <input type="text" name="qty<?php echo $i; ?>" id="qty<?php echo $i; ?>" class="form-control" value="" min="0">
+          </div>
+        <?php endfor; ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
