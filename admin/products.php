@@ -26,6 +26,22 @@
           break;
         }
       }
+      if (!empty($_FILES)) {
+        var_dump($_FILES);
+        $photo = $_FILES[0];
+        $name = $photo['name'];
+        $nameArray = explode(".",$name);
+        $fileName = $nameArray[0];
+        $fileExt = $nameArray[1];
+        $mime = explode("/",$photo['type']);
+        $mimeType = $mime[0];
+        $mimeExt = $mime[1];
+        $tmpLoc = $photo['tmp'];
+        $fileSize = $photo['size'];
+        if ($mimeType != 'image') {
+          $errors[] = "The file must be an image.";
+        }
+      }
       if (!empty($errors)) {
         echo display_errors($errors);
       }else{
