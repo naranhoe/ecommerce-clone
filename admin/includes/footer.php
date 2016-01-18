@@ -3,7 +3,13 @@
 
 <script>
 function updateSizes() {
-  alert("Update sizes!");
+  var sizeString = '';
+  for (var i = 0; i <= 12; i++) {
+    if (jQuery('#size'+i).val() != '') {
+      sizeString += jQuery('#size'+i).val()+':'+jQuery('#qty'+i).val()+',';
+    }
+  }
+  jQuery('#sizes').val(sizeString);
 }
 
 function get_child_options(){

@@ -5,6 +5,33 @@
     if (isset($_GET['add'])) {
     $brandQuery = $db->query("SELECT * FROM brand ORDER BY brand");
     $parentQuery = $db->query("SELECT * FROM categories WHERE parent = 0 ORDER BY category");
+    if ($_POST) {
+      if (!empty($_POST['sizes'])) {
+        $errors = array();
+        $sizeString = sanitize($_POST['sizes']);
+        $sizeString = rtrim($sizeString,',');
+        $sizesArray = explode(',',$sizeString);
+        $sArray = array();
+        $qArray = array();
+        foreach ($sizesArray as $ss) {
+          $s = explode(':' , $ss);
+          $sArray[] = $s[0];
+          $qArray[] = $s[1];
+        }
+      }else{$sizesArray = array();}
+      $required = array("title", "brand", "price", "parent", "child", "sizes");
+      foreach ($required as $field) {
+        if ($_POST[$field] == '') {
+          $errors[] = 'All Fields with an * are required.';
+          break;
+        }
+      }
+      if (!empty($errors)) {
+        echo display_errors($errors);
+      }else{
+        // upload file and insert into database
+      }
+    }
   ?>
     <h2 class="text-center">Add A New Product</h2><hr>
     <form class="" action="products.php?add=1" method="post"  enctype="multipart/form-data">
@@ -52,7 +79,7 @@
 
       <!-- List Price -->
       <div class="form-group col-md-3">
-        <label for="list_price">List Price*:</label>
+        <label for="list_price">List Price:</label>
         <input type="text" id="list_price" name="list_price" class="form-control" value="<?php echo ((isset($_POST['list_price']))?sanitize($_POST['list_price']):''); ?>">
       </div>
 
@@ -95,16 +122,18 @@
         <h4 class="modal-title" id="sizesModalLabel">Size & Quantity</h4>
       </div>
       <div class="modal-body">
+        <div class="container-fluid">
         <?php for($i = 1; $i <= 12; $i++): ?>
           <div class="form-group col-md-4">
             <label for="size<?php echo $i; ?>">Size:</label>
-            <input type="text" name="size<?php echo $i; ?>" id="size<?php echo $i; ?>" class="form-control" value="">
+            <input type="text" name="size<?php echo $i; ?>" id="size<?php echo $i; ?>" class="form-control" value="<?php echo ((!empty($sArray[$i-1]))?$sArray[$i-1]:'') ?>">
           </div>
           <div class="form-group col-md-2">
             <label for="qty<?php echo $i?>">Quantity:</label>
-            <input type="text" name="qty<?php echo $i; ?>" id="qty<?php echo $i; ?>" class="form-control" value="" min="0">
+            <input type="number" name="qty<?php echo $i; ?>" id="qty<?php echo $i; ?>" class="form-control" value="<?php echo ((!empty($qArray[$i-1]))?$qArray[$i-1]:'') ?>" min="0">
           </div>
         <?php endfor; ?>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
