@@ -36,11 +36,18 @@
         $mime = explode("/",$photo['type']);
         $mimeType = $mime[0];
         $mimeExt = $mime[1];
-        $tmpLoc = $photo['tmp'];
+        $tmpLoc = $photo['tmp_name'];
         $fileSize = $photo['size'];
+        $allowed = array('png', 'jpg', 'jpeg', 'gif');
         if ($mimeType != 'image') {
           $errors[] = "The file must be an image.";
         }
+        if (!in_array($fileExt, $allowed)) {
+          $errors[] = "The file extention must be: '.png', '.jpg', '.jpeg', or '.gif'";
+        }if ($fileSize > 25000000) {
+          $errors[] = 'The file size must be under 25MB.';
+        }
+
       }
       if (!empty($errors)) {
         echo display_errors($errors);
