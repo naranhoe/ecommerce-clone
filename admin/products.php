@@ -44,10 +44,12 @@
         }
         if (!in_array($fileExt, $allowed)) {
           $errors[] = "The file extention must be: '.png', '.jpg', '.jpeg', or '.gif'";
-        }if ($fileSize > 25000000) {
-          $errors[] = 'The file size must be under 25MB.';
+        }if ($fileSize > 15000000) {
+          $errors[] = 'The file size must be under 15MB.';
         }
-
+        if ($fileExt != $mimeExt && ($mimeExt = 'jpeg' && $fileExt != 'jpeg')) {
+          $errors[] = 'File extention does not match the file.';
+        }
       }
       if (!empty($errors)) {
         echo display_errors($errors);
